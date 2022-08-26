@@ -22,10 +22,15 @@ public class DroneSpawner : MonoBehaviour
 
     void SpawnAtMousePosition()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || Input.touchCount > 0)
         {
-            print(11);
             Ray ray = changeCamera.currentCamera.ScreenPointToRay(Input.mousePosition);
+
+            if(Input.touchCount > 0)
+            {
+                ray = changeCamera.currentCamera.ScreenPointToRay(Input.touches[0].position);
+            }
+
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, 1000, 3))
